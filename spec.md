@@ -3,6 +3,7 @@
 [https://kolber.github.io/audiojs/]
 [http://jplayer.org/]
 [https://www.sitepoint.com/10-jquery-html5-players/]
+(Icons)[https://icons8.com/web-app/category/Media-Controls]
 
 # Functionality
 * Custom playlists
@@ -13,3 +14,4 @@
 * Make it a jQuery-plugin
 * If possible/easy, make it a popout
 * Alter layout of player(playlist on the right or left)
+* Structure 
