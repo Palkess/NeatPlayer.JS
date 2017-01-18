@@ -1,0 +1,42 @@
+.NeatPlayerArea.default{
+  background-color: grey;
+}
+.NeatPlayerControls{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: lightgrey;
+}
+.NeatPlayerControls.default{
+  background-color: darkgrey;
+}
+
+.NeatPlayer-previous{
+  width: 20%;
+  height: 100%;
+}
+.NeatPlayer-previous img{
+  cursor: pointer;
+}
+
+.NeatPlayer-playpause{
+  width: 20%;
+  height: 100%;
+  text-align: center;
+}
+.NeatPlayer-playpause img{
+  cursor: pointer;
+}
+
+.NeatPlayer-next{
+  width: 20%;
+  height: 100%;
+  text-align: right;
+}
+.NeatPlayer-next img{
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  cursor: pointer;
+}

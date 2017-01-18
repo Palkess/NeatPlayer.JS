@@ -1,0 +1,24 @@
+html{
+  background-color: beige;
+  font-family: Ubuntu, sans-serif;
+}
+
+.container{
+  background-color: white;
+  width: 900px;
+  margin: auto;
+  min-height: 800px;
+  padding: 10px;
+}
+
+.slogan{
+  font-size: 3em !important;
+  text-align: center;
+  margin-bottom: 0;
+}
+h2{
+  font-size: 2em;
+}
+.tagline{
+  text-align: center;
+}
