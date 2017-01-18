@@ -1,2 +1,11 @@
 # NeatPlayer.JS
-HTML5 Multimedia player
+COMING SOON
+
+# Installation
+COMING SOON
+
+# Usage
+COMING SOON
+
+# Example
+COMING SOON
