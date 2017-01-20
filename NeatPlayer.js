@@ -15,8 +15,53 @@ $(function($){
       height: 360
     }, opts);
 
-    // Our parent-element
-    var parent = this;
+
+    var parent = this, // Our parent-element
+        media = [], // Holds all our media-information
+        currentSong = 0;
+
+
+    /**
+     * Get all the media-elements and set up variables
+     *
+     */
+    var init = function() {
+      var audioElements = parent.find('audio');
+
+      $.each(audioElements, function(i, el) {
+        el = $(el);
+        media.push(el[0]);
+
+        // Set the type
+        media[media.length - 1].type = el[0].src.split('.').pop().toLowerCase();
+
+        // Set a title if none has been specified
+        if (media[media.length - 1].title === '') {
+          media[media.length - 1].title = el[0].src.split('/').pop().replace(/%20/g, " ");
+        }
+
+        // Transform the duration-value into a readable string
+        media[media.length - 1].clearDuration = '';
+        var duration = media[media.length - 1].duration;
+
+        // Hours
+        if (duration >= 3600) {
+          // Kolla noll
+        }
+
+        // Minutes
+        if (duration >= 60) {
+          // Kolla noll
+        }
+
+        // Seconds
+        if (duration > 0) {
+          // Kolla noll
+        }
+      });
+
+      console.log(media);
+    };
 
     /**
      * Draws all the graphic elements in the parent-element.
@@ -29,6 +74,12 @@ $(function($){
         .height(opts.height);
 
       parent.append(playerArea);
+
+      // Setting up the first element to be played
+      playerArea.append(
+        $('<p>')
+          .html(media[0].title + '<br />' + media[0].duration)
+      );
 
       // Adding controls
       var controls =
@@ -112,6 +163,8 @@ $(function($){
       console.log('Playing next song...')
     };
 
+    // Initiate plugin
+    init();
     // Drawing the player
     draw();
 
