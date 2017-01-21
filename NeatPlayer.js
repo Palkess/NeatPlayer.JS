@@ -158,6 +158,18 @@ $(function($){
      */
     var previous = function() {
       console.log('Starting the previous song...')
+      // Stop the current song
+      media[currentSong].pause();
+      media[currentSong].currentTime = 0;
+
+      // Go to previous
+      if (currentSong - 1 >= 0) {
+        currentSong -= 1;
+      } else {
+        currentSong = media.length - 1;
+      }
+
+      play();
     };
 
     /**
@@ -166,6 +178,7 @@ $(function($){
      */
     var pause = function() {
       console.log('Pausing song...')
+      media[currentSong].pause();
     };
 
     /**
@@ -174,6 +187,7 @@ $(function($){
      */
     var play = function() {
       console.log('Playing song...')
+      media[currentSong].play();
     };
 
     /**
@@ -182,6 +196,19 @@ $(function($){
      */
     var next = function() {
       console.log('Playing next song...')
+
+      // Stop the current song
+      media[currentSong].pause();
+      media[currentSong].currentTime = 0;
+
+      // Go to next
+      if (currentSong + 1 < media.length) {
+        currentSong += 1;
+      } else {
+        currentSong = 0;
+      }
+
+      play();
     };
 
     // Initiate plugin
