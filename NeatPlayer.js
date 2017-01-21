@@ -42,22 +42,43 @@ $(function($){
 
         // Transform the duration-value into a readable string
         media[media.length - 1].clearDuration = '';
-        var duration = media[media.length - 1].duration;
+        var duration = media[media.length - 1].duration,
+            hours, // If the file doesn't have a duration longer than 1 h we never want to display 00:00:00
+            minutes = '00',
+            seconds = '00';
 
         // Hours
-        if (duration >= 3600) {
-          // Kolla noll
+        if (Math.floor(duration) >= 3600) {
+          if (Math.floor(duration / 3600) < 10) {
+            hours = '0' + Math.floor(duration / 3600);
+          } else {
+            hours = Math.floor(duration / 3600);
+          }
+
+          duration -= (Math.floor(duration / 3600) * 3600);
         }
 
         // Minutes
-        if (duration >= 60) {
-          // Kolla noll
+        if (Math.floor(duration) >= 60) {
+          if (Math.floor(duration / 60) < 10) {
+            minutes = '0' + Math.floor(duration / 60);
+          } else {
+            minutes = Math.floor(duration / 60);
+          }
+
+          duration -= (Math.floor(duration / 60) * 60);
         }
 
         // Seconds
-        if (duration > 0) {
-          // Kolla noll
+        if (Math.floor(duration) > 0) {
+          if (Math.floor(duration) < 10) {
+            seconds = '0' + Math.floor(duration);
+          } else {
+            seconds = Math.floor(duration);
+          }
         }
+
+        media[media.length - 1].clearDuration = (hours ? hours + ':' : '') + minutes + ':' + seconds;
       });
 
       console.log(media);
@@ -78,7 +99,7 @@ $(function($){
       // Setting up the first element to be played
       playerArea.append(
         $('<p>')
-          .html(media[0].title + '<br />' + media[0].duration)
+          .html(media[0].title + '<br />' + media[0].clearDuration)
       );
 
       // Adding controls
