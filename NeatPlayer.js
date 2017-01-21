@@ -78,6 +78,7 @@ $(function($){
           }
         }
 
+        // Combine it all into a readable string
         media[media.length - 1].clearDuration = (hours ? hours + ':' : '') + minutes + ':' + seconds;
       });
 
@@ -94,13 +95,13 @@ $(function($){
         .width(opts.width)
         .height(opts.height);
 
-      parent.append(playerArea);
-
       // Setting up the first element to be played
       playerArea.append(
         $('<p>')
           .html(media[0].title + '<br />' + media[0].clearDuration)
       );
+
+      parent.append(playerArea);
 
       // Adding controls
       var controls =
@@ -158,6 +159,7 @@ $(function($){
      */
     var previous = function() {
       console.log('Starting the previous song...')
+
       // Stop the current song
       media[currentSong].pause();
       media[currentSong].currentTime = 0;
@@ -169,6 +171,7 @@ $(function($){
         currentSong = media.length - 1;
       }
 
+      // Play the song
       play();
     };
 
@@ -208,6 +211,7 @@ $(function($){
         currentSong = 0;
       }
 
+      // Play the song
       play();
     };
 
