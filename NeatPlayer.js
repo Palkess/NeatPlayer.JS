@@ -133,6 +133,7 @@ $(function($){
         );
       }
 
+      // Sets the first element as active
       $(playlist.children()[0])
         .addClass('active');
 
