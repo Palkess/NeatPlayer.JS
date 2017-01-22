@@ -33,11 +33,11 @@
 }
 
 .NeatPlayerProgressContainer{
-  background-color: red;
+  background-color: #D1D1D1;
 }
 .NeatPlayerProgressBar{
   width: 0%;
-  background-color: blue;
+  background-color: #FF2E38;
   height: 100%;
 }
 
