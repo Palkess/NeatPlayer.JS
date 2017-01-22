@@ -1,6 +1,16 @@
 .NeatPlayerArea.default{
   background-color: grey;
 }
+
+.NeatPlayerProgressContainer{
+  background-color: red;
+}
+.NeatPlayerProgressBar{
+  width: 0%;
+  background-color: blue;
+  height: 100%;
+}
+
 .NeatPlayerControls{
   display: flex;
   flex-direction: row;

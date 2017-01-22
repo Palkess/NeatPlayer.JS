@@ -18,7 +18,8 @@ $(function($){
 
     var parent = this, // Our parent-element
         media = [], // Holds all our media-information
-        currentSong = 0;
+        currentSong = 0, // Holds the position of the current song
+        progressLoop; // Holds our instance of
 
 
     /**
@@ -103,6 +104,19 @@ $(function($){
 
       parent.append(playerArea);
 
+      // Adding progressbar
+      parent
+        .append(
+          $('<div>')
+            .addClass('NeatPlayerProgressContainer')
+            .width(opts.width)
+            .height(opts.height * 0.05)
+            .append(
+              $('<div>')
+                .addClass('NeatPlayerProgressBar')
+            )
+        );
+
       // Adding controls
       var controls =
         $('<div>')
@@ -161,7 +175,7 @@ $(function($){
       console.log('Starting the previous song...')
 
       // Stop the current song
-      media[currentSong].pause();
+      pause();
       media[currentSong].currentTime = 0;
 
       // Go to previous
@@ -182,6 +196,8 @@ $(function($){
     var pause = function() {
       console.log('Pausing song...')
       media[currentSong].pause();
+
+      clearInterval(progressLoop);
     };
 
     /**
@@ -191,6 +207,11 @@ $(function($){
     var play = function() {
       console.log('Playing song...')
       media[currentSong].play();
+      progressLoop = setInterval(function() {
+        console.log(((media[currentSong].currentTime / media[currentSong].duration) * 100) + '%');
+        $('.NeatPlayerProgressBar')
+          .width(((media[currentSong].currentTime / media[currentSong].duration) * 100) + '%');
+      }, 500);
     };
 
     /**
@@ -201,7 +222,7 @@ $(function($){
       console.log('Playing next song...')
 
       // Stop the current song
-      media[currentSong].pause();
+      pause();
       media[currentSong].currentTime = 0;
 
       // Go to next
