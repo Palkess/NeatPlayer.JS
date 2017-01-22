@@ -96,11 +96,47 @@ $(function($){
         .width(opts.width)
         .height(opts.height);
 
-      // Setting up the first element to be played
-      playerArea.append(
-        $('<p>')
-          .html(media[0].title + '<br />' + media[0].clearDuration)
-      );
+      // Setting up the playlist
+      var playlist = $('<ul>').addClass('NeatPlayerList');
+
+      // Add all our gathered media-elements to the list
+      for (var i = 0; i < media.length; i++) {
+        playlist.append(
+          $('<li>')
+            .attr('data-value', i)
+            .append(
+              $('<p>')
+                .addClass('title')
+                .html(media[i].title)
+            )
+            .append(
+              $('<p>')
+                .addClass('duration')
+                .html(media[i].clearDuration)
+            )
+            .append(
+              $('<p>')
+                .addClass('type')
+                .html(media[i].type)
+            )
+            .dblclick(function(ev) {
+              ev.preventDefault();
+              console.log($(this).attr('data-value'));
+
+              pause();
+              media[currentSong].currentTime = 0;
+              currentSong = parseInt($(this).attr('data-value'));
+              play();
+
+              setActive(currentSong);
+            })
+        );
+      }
+
+      $(playlist.children()[0])
+        .addClass('active');
+
+      playerArea.append(playlist);
 
       parent.append(playerArea);
 
@@ -185,6 +221,8 @@ $(function($){
         currentSong = media.length - 1;
       }
 
+      // Sets active element
+      setActive(currentSong);
       // Play the song
       play();
     };
@@ -204,14 +242,20 @@ $(function($){
      * Plays the current song
      *
      */
-    var play = function() {
+    var play = function(song) {
       console.log('Playing song...')
+
       media[currentSong].play();
       progressLoop = setInterval(function() {
-        console.log(((media[currentSong].currentTime / media[currentSong].duration) * 100) + '%');
+        var progress = (media[currentSong].currentTime / media[currentSong].duration) * 100;
+
         $('.NeatPlayerProgressBar')
           .width(((media[currentSong].currentTime / media[currentSong].duration) * 100) + '%');
-      }, 500);
+
+        if (progress === 100){
+          clearInterval(progressLoop);
+        }
+      }, 100);
     };
 
     /**
@@ -226,12 +270,16 @@ $(function($){
       media[currentSong].currentTime = 0;
 
       // Go to next
-      if (currentSong + 1 < media.length) {
+      if ((currentSong + 1) < media.length) {
         currentSong += 1;
+        console.log('going to next');
       } else {
         currentSong = 0;
+        console.log('going to 0');
       }
 
+      // Set the element of the song as active
+      setActive(currentSong);
       // Play the song
       play();
     };
@@ -242,4 +290,18 @@ $(function($){
     draw();
 
   };
+
+  /**
+   * Add 'active'-class to given element
+   *
+   */
+  var setActive = function(el) {
+    // Remove the class from the previous active-element
+    $('li.active')
+      .removeClass('active');
+
+    // Add to the new one
+    $('.NeatPlayerList li[data-value=' + el + ']')
+      .addClass('active');
+  }
 });
